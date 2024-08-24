@@ -1,4 +1,3 @@
-# What is Compressify?
 Compressify is a free and open source application made in Python to compress your audio/videos.
 
 # Usage
@@ -7,11 +6,15 @@ Compressify is a free and open source application made in Python to compress you
 3. Choose a file to compress
 
 # Building from source
-1. Clone the repo by typing "git clone --recursive https://github.com/Zyrnixx/Compressify.git"
-2. cd into the root of the project "cd Compressify"
-3. create a venv by running "python -m venv venv"
-4. install the requirements by typing "pip install -r requirements.txt"
-5. run "pyinstaller main.py"
+1. Clone the repo by running "git clone --recursive https://github.com/Zyrnixx/Compressify.git" in a terminal/command prompt
+2. cd into the root of the project by running "cd Compressify"
+3. Create a venv by running "python -m venv venv"
+4. Activate venv by running:
+* Windows (Command Prompt): ".\venv\Scripts\activate.bat"
+* Windows (Powershell): ".\venv\Scripts\Activate.ps1"
+* macOS/Linux: "source venv/bin/activate"
+5. Install the requirements by running "pip install -r requirements.txt"
+6. Run "pyinstaller main.py"
 
 
 Credits:
