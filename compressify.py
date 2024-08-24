@@ -1,21 +1,17 @@
 import sys
 import os
-from tkinter import messagebox as mb
 import ffmpeg
 from PySide6 import QtCore, QtWidgets
-from tkinter import filedialog
 
-from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QPushButton, QFileDialog, QMessageBox
 
 
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         self.button = QtWidgets.QPushButton("Convert")
-        self.text = QtWidgets.QLabel("Click the convert button to convert your video",
+        self.text = QtWidgets.QLabel("Click the convert button to convert your file",
                                      alignment=QtCore.Qt.AlignCenter)
-        self.fileSTR = QtWidgets.QLabel("N/A",
-                                        alignment=QtCore.Qt.AlignBottom)
         self.encoder = "x265"
         #For NVIDIA GPUs
         self.nvencButton = QPushButton("NVENC (NVIDIA)", self)
@@ -37,7 +33,6 @@ class MyWidget(QtWidgets.QWidget):
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.text)
 
-        self.layout.addWidget(self.fileSTR)
         self.layout.addWidget(self.nvencButton, alignment=QtCore.Qt.AlignBottom)
         self.layout.addWidget(self.AMFButton)
         self.layout.addWidget(self.QuickSyncButton)
@@ -72,21 +67,23 @@ class MyWidget(QtWidgets.QWidget):
     @QtCore.Slot()
     def magic(self):
         # Open file dialog to select a file
-        file_path = filedialog.askopenfilename()
-
+        file_path = QFileDialog.getOpenFileName(self, "Choose File")
+        if isinstance(file_path, tuple):
+            file_path = file_path[0]
         if file_path:
-            msg = "are you sure you want to compress the file:"
-            msgp2 = "?"
-            fullmsg = (msg, file_path, msgp2)
-            self.fileSTR.setText(file_path)
-            answer = mb.askquestion(title="Confirm?", message=fullmsg)
+            reply = QMessageBox.question(widget, 'Compress File',
+                                         f"Do you want to compress {file_path}?",
+                                         QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                         QMessageBox.StandardButton.No)
+            #answer = mb.askquestion(title="Confirm?", message=fullmsg)
 
-            if answer == "yes":
+            if reply == QMessageBox.StandardButton.Yes:
+                # Split the file path into directory, base filename, and extension
                 # Split the file path into directory, base filename, and extension
                 directory, filename = os.path.split(file_path)
                 base_name, extension = os.path.splitext(filename)
 
-                # Add "_output" to the filename
+                # Add "_compressed" to the filename
                 outputfile = os.path.join(directory, f"{base_name}_compressed{extension}")
 
                 # Print the original and new file paths
@@ -100,12 +97,15 @@ class MyWidget(QtWidgets.QWidget):
                         .run()
 
                     )
-                    print(f"Video processed successfully: {outputfile}")
-                    mb.showinfo(title="Success!", message="Your file has been compressed!")
+                    print(f"File processed successfully: {outputfile}")
+                    success = QMessageBox()
+                    success.setText("File Compressed Successfuly!")
+                    success.exec()
                 except ffmpeg.Error as e:
                     print(f"An error occurred: {e.stderr.decode()}")
-                    mb.showerror(title="Error!", message="Your file could not be compressed.")
-
+                    failure = QMessageBox()
+                    failure.setText("Failed to compress file")
+                    failure.exec()
 
 
 
