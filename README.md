@@ -1,5 +1,9 @@
 Compressify is a free and open source application made in Python to compress your audio/videos.
 
+Report issues [here](https://github.com/Zyrnixx/Compressify/issues)
+
+Feel free to contribute to this project to make Compressify even better!
+
 # Usage
 1. Open the software
 2. Choose an encoder (AMF for AMD GPUs, NVENC for Nvidia GPUs, Quicksync for Intel GPUs)
