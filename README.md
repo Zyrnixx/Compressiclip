@@ -3,6 +3,7 @@ Compressify is a free and open source application made in Python to compress you
 # Usage
 1. Open the software
 2. Choose an encoder (AMF for AMD GPUs, NVENC for Nvidia GPUs, Quicksync for Intel GPUs)
+3. Choose a file to compress
 
 # Building from source
 1. Clone the repo by typing "git clone --recursive https://github.com/Zyrnixx/Compressify.git"
