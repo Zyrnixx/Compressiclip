@@ -10,6 +10,9 @@ Feel free to contribute to this project to make Compressify even better!
 2. Choose an encoder (AMF for AMD GPUs, NVENC for Nvidia GPUs, Quicksync for Intel GPUs)
 3. Choose a file to compress
 
+# What witchcraft is being done here?!
+Compressify uses the FFmpeg project to convert videos that are encoded with [h264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) into the more efficient [HEVC](https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding) format. This decreases the file size considerably, and is very useful for large videos.
+
 # Building from source
 1. Clone the repo by typing "git clone --recursive https://github.com/Zyrnixx/Compressify.git"
 2. cd into the root of the project "cd Compressify"
