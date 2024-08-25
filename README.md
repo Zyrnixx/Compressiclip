@@ -1,3 +1,4 @@
+# What is Compressify?
 Compressify is a free and open source application made in Python to compress your audio/videos.
 
 Report issues [here](https://github.com/Zyrnixx/Compressify/issues)
