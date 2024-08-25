@@ -5,6 +5,9 @@ import ffmpeg
 from PySide6 import QtCore, QtWidgets
 from tkinter import filedialog
 
+from PySide6.QtWidgets import QPushButton
+
+
 class MyWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -13,13 +16,58 @@ class MyWidget(QtWidgets.QWidget):
                                      alignment=QtCore.Qt.AlignCenter)
         self.fileSTR = QtWidgets.QLabel("N/A",
                                         alignment=QtCore.Qt.AlignBottom)
+        self.encoder = "x265"
+        #For NVIDIA GPUs
+        self.nvencButton = QPushButton("NVENC (NVIDIA)", self)
+        self.nvencButton.setFixedSize(120, 30)
+
+        #For AMD GPUs
+        self.AMFButton = QPushButton("AMF (AMD)", self)
+        self.AMFButton.setFixedSize(120, 30)
+
+        #For Intel iGPUs and Arc GPUs (to be tested)
+        self.QuickSyncButton = QPushButton("QuickSync (Intel)", self)
+        self.QuickSyncButton.setFixedSize(120, 30)
+
+        self.x265Button = QPushButton("Software (CPU)", self)
+        self.x265Button.setFixedSize(120, 30)
+
+
         self.setWindowTitle("Compressify")
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.text)
+
         self.layout.addWidget(self.fileSTR)
+        self.layout.addWidget(self.nvencButton, alignment=QtCore.Qt.AlignBottom)
+        self.layout.addWidget(self.AMFButton)
+        self.layout.addWidget(self.QuickSyncButton)
+        self.layout.addWidget(self.x265Button)
         self.layout.addWidget(self.button)
 
+
         self.button.clicked.connect(self.magic)
+        self.x265Button.clicked.connect(self.x265clicked)
+        self.nvencButton.clicked.connect(self.nvencClicked)
+        self.AMFButton.clicked.connect(self.AMFClicked)
+        self.QuickSyncButton.clicked.connect(self.quicksyncClicked)
+
+    def x265clicked(self):
+        self.encoder = "libx265"
+        print(self.encoder)
+
+    def nvencClicked(self):
+        self.encoder = "hevc_nvenc"
+        print(self.encoder)
+
+    def AMFClicked(self):
+        self.encoder = "hevc_amf"
+        print(self.encoder)
+
+    def quicksyncClicked(self):
+        self.encoder = "hevc_qsv"
+        print(self.encoder)
+
+
 
     @QtCore.Slot()
     def magic(self):
@@ -48,7 +96,7 @@ class MyWidget(QtWidgets.QWidget):
                     (
                         ffmpeg
                         .input(file_path)
-                        .output(outputfile, vcodec='libx265', crf=28)
+                        .output(outputfile, vcodec=self.encoder, crf=28)
                         .run()
 
                     )
@@ -56,7 +104,7 @@ class MyWidget(QtWidgets.QWidget):
                     mb.showinfo(title="Success!", message="Your file has been compressed!")
                 except ffmpeg.Error as e:
                     print(f"An error occurred: {e.stderr.decode()}")
-                    mb.showerror(title="Error!", message="Your file could not be converted.")
+                    mb.showerror(title="Error!", message="Your file could not be compressed.")
 
 
 
