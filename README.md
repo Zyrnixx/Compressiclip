@@ -5,7 +5,7 @@ Report issues [here](https://github.com/Zyrnixx/Compressiclip/issues)
 
 Feel free to contribute to this project to make Compressiclip even better!
 
-![screenshot](https://raw.githubusercontent.com/Zyrnixx/Compressiclip/main/screenshot.png?token=GHSAT0AAAAAACURD5IVDR5OGQOBLM7IJV22ZWKMUNA)
+![screenshot](https://raw.githubusercontent.com/Zyrnixx/Compressiclip/main/screenshot.png)
 # Usage
 1. Open the software
 2. Choose an encoder (AMF for AMD GPUs, NVENC for Nvidia GPUs, Quicksync for Intel GPUs, Software (x265) for CPUs)
