@@ -29,7 +29,7 @@ class MyWidget(QtWidgets.QWidget):
         self.x265Button.setFixedSize(120, 30)
 
 
-        self.setWindowTitle("Compressify")
+        self.setWindowTitle("Compressiclip")
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.text)
 
