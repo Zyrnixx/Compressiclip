@@ -18,8 +18,12 @@ Compressiclip uses the [FFmpeg](https://ffmpeg.org/) project to convert videos t
 1. Clone the repo by running "git clone --recursive https://github.com/Zyrnixx/Compressiclip.git"
 2. cd into the root of the project "cd Compressiclip"
 3. Create a venv by running "python -m venv venv"
-4. Install the requirements by running "pip install -r requirements.txt"
-5. Run "pyinstaller compressiclip.py"
+4. Enter the venv by running;
+* Windows (Command Prompt) ".\venv\Scripts\activate.bat"
+* Windows (Powershell) ".\venv\Scripts\Activate.ps1"
+* Linux/macOS "source venv/bin/activate"
+5. Install the requirements by running "pip install -r requirements.txt"
+6. Run "pyinstaller compressiclip.py"
 
 # TODO
 * Test NVIDIA GPUs
